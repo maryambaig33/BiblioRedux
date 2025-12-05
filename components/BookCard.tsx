@@ -1,6 +1,6 @@
 import React from 'react';
 import { Book } from '../types';
-import { ShoppingBag, Award, PenTool } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 
 interface BookCardProps {
   book: Book;

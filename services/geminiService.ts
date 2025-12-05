@@ -2,16 +2,14 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Book } from "../types";
 import { MOCK_BOOKS } from "../constants";
 
-// Initialize Gemini
-// NOTE: In a real app, strict error handling for missing API keys is essential.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 /**
  * Uses Gemini to act as a librarian. It can either recommend books from our "inventory" (Mock Data)
  * or provide general knowledge about rare books.
  */
 export const askLibrarian = async (query: string): Promise<{ text: string; recommendations: Book[] }> => {
   try {
+    // Initialize inside the function to safely handle environment variables and errors
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const model = 'gemini-2.5-flash';
     
     // We provide the inventory to the model so it can "query" our database semantically
@@ -85,6 +83,9 @@ export const askLibrarian = async (query: string): Promise<{ text: string; recom
  */
 export const identifyBookFromImage = async (base64Image: string): Promise<{ title: string; analysis: string; tags: string[] }> => {
   try {
+    // Initialize inside the function
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    
     // gemini-2.5-flash-image is used for image analysis.
     // It does NOT support responseMimeType or responseSchema.
     const model = 'gemini-2.5-flash-image';
