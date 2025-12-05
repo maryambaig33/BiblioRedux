@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Search, 
-  Menu, 
   ShoppingBag, 
   BookOpen, 
   Camera, 
   Sparkles, 
-  X,
   User,
   Heart,
   ChevronRight,
@@ -44,15 +42,20 @@ const App: React.FC = () => {
     setSearchResults(filtered);
   }, [searchQuery]);
 
-  const handleAiSearch = async () => {
-    if (!searchQuery) return;
+  const handleAiSearch = async (overrideQuery?: string) => {
+    const queryToUse = overrideQuery || searchQuery;
+    if (!queryToUse) return;
+
+    if (overrideQuery) {
+      setSearchQuery(overrideQuery);
+    }
     
     setIsAiLoading(true);
     setShowAiChat(true);
     setView(ViewState.AI_LIBRARIAN);
     
     try {
-      const { text, recommendations } = await askLibrarian(searchQuery);
+      const { text, recommendations } = await askLibrarian(queryToUse);
       setAiResponse(text);
       if (recommendations.length > 0) {
         setSearchResults(recommendations);
@@ -160,7 +163,7 @@ const App: React.FC = () => {
                       <Camera size={20} />
                     </button>
                     <button 
-                      onClick={handleAiSearch}
+                      onClick={() => handleAiSearch()}
                       className="flex-grow sm:flex-grow-0 flex items-center justify-center gap-2 bg-biblio-green hover:bg-biblio-dark text-white px-8 py-3 rounded-xl font-medium transition-colors shadow-lg"
                     >
                       <Sparkles size={18} />
@@ -174,7 +177,7 @@ const App: React.FC = () => {
                 {['First Editions', 'Signed Copies', 'Sci-Fi 1960s', 'Leather Bound'].map(tag => (
                   <button 
                     key={tag} 
-                    onClick={() => { setSearchQuery(tag); setTimeout(handleAiSearch, 100); }}
+                    onClick={() => handleAiSearch(tag)}
                     className="hover:text-biblio-gold underline decoration-biblio-gold/30 underline-offset-4 transition-colors"
                   >
                     {tag}

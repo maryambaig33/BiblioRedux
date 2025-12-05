@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Camera, X, Upload, Loader2, ScanLine } from 'lucide-react';
+import { Camera, X, Upload, ScanLine } from 'lucide-react';
 import { identifyBookFromImage } from '../services/geminiService';
 
 interface VisualSearchProps {

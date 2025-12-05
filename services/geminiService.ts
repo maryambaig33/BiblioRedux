@@ -85,6 +85,8 @@ export const askLibrarian = async (query: string): Promise<{ text: string; recom
  */
 export const identifyBookFromImage = async (base64Image: string): Promise<{ title: string; analysis: string; tags: string[] }> => {
   try {
+    // gemini-2.5-flash-image is used for image analysis.
+    // It does NOT support responseMimeType or responseSchema.
     const model = 'gemini-2.5-flash-image';
     
     const response = await ai.models.generateContent({
