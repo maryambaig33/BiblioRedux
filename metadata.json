@@ -1,0 +1,7 @@
+{
+  "name": "BiblioRedux",
+  "description": "A modern, AI-enhanced marketplace for rare, out-of-print, and collectible books. Features visual search for identification and an AI librarian for natural language discovery.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
